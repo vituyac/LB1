@@ -1,0 +1,114 @@
+/coins GET
+[
+    {
+        "coin_name": "Bitcoin",
+        "coin_code": "BTC",
+        "price": 50000.0,
+        "1h": -25.0,
+        "24h": 23.0,
+        "7d": 56.0,
+        "market_cap": 2303534050432.0,
+        "volume": 4395723867.0,
+        "last_price": [324,436,584,987,674]
+    },
+]
+
+/trends GET
+[
+    {
+        "coin_name": "Bitcoin",
+        "coin_code": "BTC",
+        "24h": 23.0,
+    },
+    {
+        "coin_name": "Bitcoin",
+        "coin_code": "BTC",
+        "24h": 23.0,
+    },
+]
+
+/exchanges GET
+[
+    {
+        "name": "Binance",
+        "score": 9.0,
+        "volume24h": 364578658725,
+        "markets": 67,
+        "coins": 45,
+        "last_volume": [324,436,584,987,674]
+    },
+]
+
+/portfolio GET
+{
+    "coins": [
+        {
+            "coin_name": "Bitcoin",
+            "coin_code": "BTC",
+            "volume": 34.0,
+            "usd_price": 3289476278.0,
+            "last_price": [324,436,584,987,674]
+        },
+    ],
+    "deals": [
+        {
+            "date": "2024-02-02T12:33:33",
+            "type": "sell",
+            "price": 3543256.0,
+            "volume": 3.0,
+            "coin_name": "Bitcoin",
+            "coin_code": "BTC",
+        },
+    ],
+    "profile_volume_usd": [324.0,436.0,584.0,987.0,674.0],
+    "profile_volume_btc": [324.0,436.0,584.0,987.0,674.0],
+    "current_volume_usd": 345.0,
+    "current_volume_btc": 345.0
+}
+
+/add-deal POST
+body:
+{
+    "date": "2024-02-02T12:33:33",
+    "type": "sell",
+    "price": 3543256,
+    "volume": 3,
+    "coin_name": "Bitcoin",
+    "coin_code": "BTC",
+}
+
+respose:
+[
+    {
+        "date": "2024-02-02T12:33:33",
+        "type": "sell",
+        "price": 3543256,
+        "volume": 3,
+        "coin_name": "Bitcoin",
+        "coin_code": "BTC",
+    },
+]
+
+Задание: создать проект Java Spring, реализовать перечень GET и POST url.
+Все принимаемые и передаваемые данные должны быть описаны дата-классами (dto)
+
+@GetMapping("/coins")
+    public List<coinsDTO> hello(@RequestParam(value = "name", defaultValue = "World") String name) {
+        List<coinsDTO> coins = new ArrayList<>();
+        coins.add(new coinsDTO("Bitcoin", "BTC", 50000f, -25f, 23f, 56f, 230f, 439f));
+        return coins;
+    }
+
+
+    @RestController
+    public class MainController {
+
+        private static final String template = "Hello, %s!";
+        private final AtomicLong counter = new AtomicLong();
+        List<coinsDTO> coins = new ArrayList<>();
+        @GetMapping("/coins")
+        public List<coinsDTO> greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
+            coins.add(new coinsDTO("Bitcoin", "BTC", 50000f, -25f, 23f, 56f, 230f, 439f));
+            return coins;
+        }
+    }
